@@ -1,19 +1,35 @@
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-    console.log(req.url, req.method, req.headers);
-    res.setHeader('Content-Type', 'text/html');
+
+    if (req.url === '/message') {
+        res.write(`
+            <html>
+                <head>
+                    <title>Node Js Course</title>
+                </head>
+                <body>
+                    <form action="/message" method="POST">
+                        <input type="text" name="message">
+                        <input type="submit" value="Send" />
+                    </form>
+                </body>
+            </html>
+        `)
+        return res.end();
+    }
+
     res.write(`
-    <html>
-        <head>
-            <title>Node Js Course</title>
-        </head>
-        <body>
-            <h1>My first server with html</h1>
-        </body>
-    </html>
-    `)
-    res.end();
+            <html>
+                <head>
+                    <title>Node Js Course</title>
+                </head>
+                <body>
+                    <h1>My first server with html</h1>
+                </body>
+            </html>
+        `)
+    return res.end();
 })
 
 server.listen('3000', () => {
