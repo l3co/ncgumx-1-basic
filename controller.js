@@ -28,7 +28,9 @@ function writeMessage(req, res) {
     req.on('end', () => {
         const bodyParser = Buffer.concat(body).toString();
         const message = bodyParser.split('=')[1]
-        fs.writeFileSync('message.txt', message);
+        fs.writeFile('message.txt', message, (err) => {
+            console.log(`Error to write a file ${err.message}`)
+        });
     })
 
 
